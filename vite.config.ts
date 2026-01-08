@@ -14,9 +14,9 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             manifest: {
-                name: "$NAME",
-                short_name: '$NAME',
-                description: "$NAME",
+                name: "goose-green",
+                short_name: 'goose-green',
+                description: "goose-green",
                 theme_color: "#FFFFE0",
                 icons: [{
                     src: "pwa-64x64.png",
