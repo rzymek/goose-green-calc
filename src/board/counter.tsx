@@ -1,0 +1,88 @@
+import {CSSProperties} from "react";
+import {Unit} from "./unit.tsx";
+import {At} from "./at.tsx";
+
+export function Counter(props: {
+    unit: Unit,
+    selected?: boolean,
+    x: number,
+    y: number,
+    onClick(): void,
+}) {
+    const labelHeight = 20;
+    const h1 = 50;
+    const margin = 8;
+    const fireStrength: CSSProperties = {
+        stroke: 'black',
+        strokeWidth: 0.5,
+        fill: 'white',
+        fontSize: h1,
+        fontWeight: 'bold',
+        textAnchor: 'start',
+    };
+    const selected:CSSProperties = {
+        stroke: 'blue',
+        strokeWidth: 5,
+    }
+    const outline: CSSProperties = {
+        x: -70,
+        y: -70,
+        fill: 'lightgray',
+        strokeWidth: 2,
+        stroke: 'gray',
+        width: 140,
+        height: 140,
+        ...(props.selected ? selected : {})
+    };
+    return <At x={props.x} y={props.y}>
+        <rect style={outline}/>
+        {props.unit.mode == 'move' && <polygon points="-65,60 -35,-50 -5,60 -35,25" style={{
+            fill: '#881f1f',
+        }}/>}
+        <rect x={-70+2} y={-65} width={140-3} height={labelHeight} style={{
+            fill: 'white'
+        }}/>
+        <text x={0} y={-65 + labelHeight} width={140} height={labelHeight} style={{
+            fill: 'black',
+            textAnchor: 'middle',
+            alignmentBaseline: 'ideographic',
+            fontSize: labelHeight * 0.9,
+            fontWeight: 'bold',
+        }}>{props.unit.id}
+        </text>
+        <text x={-70 + margin} y={70 - margin} width={140} height={h1} style={{
+            ...fireStrength,
+        }}>
+            {props.unit.fireStrength}
+        </text>
+        <text x={-70 + margin + 30} y={70 - margin} width={140} height={h1} style={{
+            ...fireStrength,
+            fontSize: 38,
+        }}>
+            {props.unit.range}
+        </text>
+        <text x={70 - margin - 30} y={70 - margin} width={140} height={h1} style={{
+            ...fireStrength,
+            fontSize: 38,
+            textAnchor: 'end',
+            filter: 'url(#solidTextBox)',
+        }}>
+            {props.unit.steps}
+        </text>
+        <text x={70 - margin} y={70 - margin} width={140} height={h1} style={{
+            ...fireStrength,
+            textAnchor: 'end',
+        }}>
+            {props.unit.defenceStrength}
+        </text>
+        <rect style={{
+            ...outline,
+            opacity: 0,
+            cursor: 'pointer'
+        }} onClick={props.onClick}/>
+        {props.selected && <rect style={{
+            ...outline,
+            opacity:0.5
+        }}/>}
+    </At>
+}
